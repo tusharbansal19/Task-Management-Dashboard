@@ -26,26 +26,25 @@ const Calendar = () => {
     );
 
   return (
-    <div className="bg-[#2C2B5A] text-white p-6 rounded-lg shadow-md  w-[80%]">
-      <h2 className="text-xl font-bold text-center mb-6">Task Calendar</h2>
+    <div className="bg-[#2C2B5A] text-white p-6 rounded-lg shadow-md w-full md:w-[80%] mx-auto">
+      {/* Month Display */}
+      <div className="flex justify-between items-center mb-4">
+        <h2 className="text-2xl font-semibold">{format(today, "MMMM yyyy")}</h2>
+      </div>
 
       {/* Toggle Buttons */}
-      <div className="flex justify-center ">
+      <div className="flex justify-center mb-6">
         <button
-          className={`px-4 py-2 rounded-l-lg font-medium transition-colors ${
-            !showCompleted
-              ? "bg-blue-500 text-white"
-              : "bg-gray-700 hover:bg-gray-600"
+          className={`px-4 py-2 rounded-l-lg font-medium transition-colors text-[10px] sm:text-[20px] ${
+            !showCompleted ? "bg-blue-500 text-white" : "bg-gray-700 hover:bg-gray-600"
           }`}
           onClick={() => setShowCompleted(false)}
         >
           Incomplete Tasks
         </button>
         <button
-          className={`px-4 py-2 rounded-r-lg font-medium transition-colors ${
-            showCompleted
-              ? "bg-green-500 text-white"
-              : "bg-gray-700 hover:bg-gray-600"
+          className={`px-2 py-2 rounded-r-lg font-medium transition-colors text-[10px] sm:text-[20px] ${
+            showCompleted ? "bg-green-500 text-white" : "bg-gray-700 hover:bg-gray-600"
           }`}
           onClick={() => setShowCompleted(true)}
         >
@@ -54,36 +53,26 @@ const Calendar = () => {
       </div>
 
       {/* Calendar Grid */}
-      <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-4 lg:grid-cols-7 gap-4">
+      <div className="grid grid-cols-7 gap-2 text-xs sm:text-base">
+        {/* Render Day Names */}
+        {["Su", "Mn", "Tu", "Wd", "Th", "Fr", "St"].map((day) => (
+          <div key={day} className="text-center font-semibold">
+            {day}
+          </div>
+        ))}
+
         {daysInMonth.map((day) => {
           const dayTasks = filteredTasks(day);
+          const hasCompletedTasks = dayTasks.some((task) => task.status === "completed");
+          const hasIncompleteTasks = dayTasks.some((task) => task.status !== "completed");
+
           return (
             <div
-              key={day.toISOString()}
-              className="bg-[#1F1E3E] p-2 rounded-lg shadow-md border border-gray-700"
+              key={format(day, "d")}
+              className={` w-fit h-fit p-0.5 sm:p-2  flex items-center justify-center text-lg font-semibold text-[0.4rem] sm:text-[1rem] rounded-full
+                 ${hasCompletedTasks ? "bg-green-700" : hasIncompleteTasks ? "bg-red-700" : "bg-gray-700"}`}
             >
-              <h3 className="text-lg font-semibold ">
-                {format(day, "EEEE, MMM d")}
-              </h3>
-              {dayTasks.length > 0 ? (
-                <ul className="space-y-2">
-                  {dayTasks.map((task) => (
-                    <li
-                      key={task.id}
-                      className={`p-2 rounded-md ${
-                        task.status === "completed"
-                          ? "bg-green-500 text-white"
-                          : "bg-red-500 text-white"
-                      }`}
-                    >
-                      <p className="font-medium">{task.title}</p>
-                      <p className="text-sm">{task.description}</p>
-                    </li>
-                  ))}
-                </ul>
-              ) : (
-                <p className="text-gray-400 text-sm">No tasks</p>
-              )}
+              <div className="text-white">{format(day, "d")}</div>
             </div>
           );
         })}

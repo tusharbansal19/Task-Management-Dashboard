@@ -21,10 +21,12 @@ const taskPerformanceData = [
 
 const LineChartCard = () => {
   return (
-    <div className="bg-[#2C2B5A] text-white p-4 rounded-lg shadow-md hover:scale-105 transition-transform duration-300 w-full">
-      <h2 className="text-xl font-bold mb-4">Weekly Task Trends</h2>
+    <div className="bg-[#2C2B5A] text-white p-4 sm:p-3 rounded-lg shadow-md hover:scale-105 transition-transform duration-300 w-full">
+      <h2 className="text-xl sm:text-lg font-bold mb-4 sm:mb-2">
+        Weekly Task Trends
+      </h2>
       <div className="flex justify-center w-full">
-        <ResponsiveContainer width="100%" height={300}>
+        <ResponsiveContainer width="100%" height={250}>
           <LineChart data={taskPerformanceData}>
             <XAxis dataKey="name" stroke="#FFFFFF" />
             <YAxis stroke="#FFFFFF" />
@@ -45,7 +47,7 @@ const LineChartCard = () => {
           </LineChart>
         </ResponsiveContainer>
       </div>
-      <p className="text-center mt-4">
+      <p className="text-center mt-4 text-sm sm:text-base">
         The line chart tracks the trend of tasks completed and incomplete over
         the week.
       </p>

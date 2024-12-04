@@ -12,24 +12,25 @@ const COLORS = ["#8E44AD", "#3498DB"]; // Purple for Completed, Blue for Incompl
 
 const PieChartCard = () => {
   const isSmallScreen = useMediaQuery("(max-width:600px)");
-  const chartSize = isSmallScreen ? 250 : 350; // Adjusted chart size for responsiveness
-  const outerRadius = isSmallScreen ? 90 : 120;
+  const chartSize = isSmallScreen ? 150 : 350; // Adjusted chart size for responsiveness
+  const outerRadius = isSmallScreen ? 60 : 120;
 
   return (
-    <div className="bg-[#2C2B5A] text-white p-2 rounded-lg shadow-md hover:scale-105 transition-transform duration-300">
+    <div className="bg-[#2C2B5A] text-white  sm:p-2 rounded-lg shadow-md hover:scale-105 transition-transform duration-300 w-full">
       <div className="flex flex-col items-center">
         {/* Title */}
         <h2
           className={`font-bold ${
             isSmallScreen ? "text-lg" : "text-xl"
-          } mb-4`}
+          } mb-4 sm:mb-2`}
         >
           Task Completion Breakdown
         </h2>
 
         {/* Pie Chart */}
-        <div className="flex justify-center items-center text-[0.6rem]">
+        <div className="flex justify-center items-center w-full overflow-hidden  text-[0.2rem] sm:text-[1rem]">
           <PieChart width={chartSize} height={chartSize}>
+            className="overflow-hidden "
             <Pie
               data={pieData}
               cx="50%"
@@ -59,7 +60,7 @@ const PieChartCard = () => {
             />
             <Legend
               verticalAlign="bottom"
-              height={36}
+              height={"2%"}
               iconType="circle"
               formatter={(value, entry, index) => (
                 <span style={{ color: COLORS[index % COLORS.length] }}>

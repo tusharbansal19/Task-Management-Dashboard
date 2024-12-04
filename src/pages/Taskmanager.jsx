@@ -133,10 +133,10 @@ const  [arrayOfTitle,serArrayOgtitle]=useState([]);
     <div className="container mx-auto p-4 min-h-[500px]" >
       {/* Header */}
       <ToastContainer />
-      <div className="flex flex-col justify-between items-center mb-6">
+      <div className="flex flex-col justify-between items-center mb-6 text-[10px] sm:text-[20px]">
         <h1 className="text-2xl font-bold text-white underline mb-10">Task Manager</h1>
 
-            <div className="text-[#8E44AD] text-[2rem] font-extrabold my-3  ">
+            <div className="text-[#8E44AD]  font-extrabold my-3 text-[10px] sm:text-[20px] ">
         <div className="flex items-center">      
       | Task : <span className="">  </span>
 
@@ -152,8 +152,8 @@ const  [arrayOfTitle,serArrayOgtitle]=useState([]);
                                   />
                                   </div>
                               </div>
-        <div className="flex items-center justify-center gap-4 w-full pr-20 ">
-        <div className="flex items-center gap-4 w-full justify-center ">
+        <div className="flex items-center justify-center gap-4 w-full sm:pr-20 text-[10px] sm:text-[20px] ">
+        <div className="flex sm:flex-row flex-col items-center gap-4 w-full justify-center ">
       <div className="relative w-full md:w-auto">
         <input
           type="text"
@@ -179,11 +179,12 @@ const  [arrayOfTitle,serArrayOgtitle]=useState([]);
           </ul>
         )}
       </div>
+<div className=" text-[10px] sm:text-[20px] flex flex-row  justify-center items-center">
 
       <button
-        className="bg-blue-500 text-white px-4 py-2 rounded shadow hover:bg-blue-600 transition"
+        className="bg-blue-500 text-white h-[30px] sm:h-[50px] rounded shadow hover:bg-blue-600 transition"
         onClick={() => setModalOpen(true)}
-      >
+        >
         Add Task
       </button>
       <div className="mt-4 m-5 ">
@@ -191,7 +192,7 @@ const  [arrayOfTitle,serArrayOgtitle]=useState([]);
             value={filter}
             onChange={(e) => setFilter(e.target.value)}
             className="p-2 border rounded bg-[#2C2B5A]"
-          >
+            >
             <option value="all">All Tasks</option>
             <option value="completed">Completed</option>
             <option value="incomplete">Incomplete</option>
@@ -199,6 +200,7 @@ const  [arrayOfTitle,serArrayOgtitle]=useState([]);
             <option value="overdue">Overdue</option>
           </select>
         </div>
+            </div>
     </div>
        
         </div>
@@ -281,32 +283,32 @@ const  [arrayOfTitle,serArrayOgtitle]=useState([]);
   </div>
 </DragDropContext>
 
-      {/* Delete Confirmation Modal */}
-      {isDeleteModalOpen && (
-        <div className="fixed inset-0 flex items-center justify-center bg-opacity-30 bg-[#2C2B5A]">
-          <div className="text-white z-[80] bg-blue-950 p-6 rounded-lg w-1/3 border-2 ">
-            <h2 className="text-xl font-bold mb-4">Are you sure?</h2>
-            <div className="flex justify-end gap-2">
-              <button
-                className="bg-green-500 text-white px-4 py-2 rounded"
-                onClick={() => setDeleteModalOpen(false)}
-              >
-                Cancel
-              </button>
-              <button
-                className="bg-red-500 text-white px-4 py-2 rounded"
-                onClick={handleDeleteTask}
-              >
-                Delete
-              </button>
-            </div>
-          </div>
-        </div>
-      )}
+    {/* Delete Confirmation Modal */}
+{isDeleteModalOpen && (
+  <div className="fixed inset-0 flex items-center justify-center bg-opacity-30 bg-[#2C2B5A]">
+    <div className="text-white z-[80] bg-blue-950 p-4 sm:p-6 rounded-lg w-[90%] sm:w-[400px] border-2">
+      <h2 className="text-xl sm:text-2xl font-bold mb-4">Are you sure?</h2>
+      <div className="flex justify-end gap-2">
+        <button
+          className="bg-green-500 text-white px-4 py-2 rounded transition duration-200 hover:bg-green-600"
+          onClick={() => setDeleteModalOpen(false)}
+        >
+          Cancel
+        </button>
+        <button
+          className="bg-red-500 text-white px-4 py-2 rounded transition duration-200 hover:bg-red-600"
+          onClick={handleDeleteTask}
+        >
+          Delete
+        </button>
+      </div>
+    </div>
+  </div>
+)}
 
       {/* Modal for Adding/Editing Task */}
       {isModalOpen && (
-        <div className="fixed inset-0 flex items-center justify-center bg-opacity-30 border-4 border-white">
+        <div className="fixed inset-0 flex items-center justify-center bg-opacity-30 border-4 border-white z-[100]">
           <div className="bg-[#2C2B5A] p-6 rounded-lg shadow-lg w-full max-w-md border-4 border-white ">
             <h2 className="text-xl font-bold mb-4">
               {editingTask ? "Edit Task" : "Add Task"}
