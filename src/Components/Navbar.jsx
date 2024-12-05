@@ -14,7 +14,7 @@ const Navbar = () => {
   ];
 
   return (
-    <nav className="fixed z-50 w-full text-white p-4 shadow-md bg-[#2A265F]">
+    <nav className="fixed z-[100] w-full text-white p-4 shadow-md bg-[#2A265F]">
       <div className="relative z-10 flex justify-between items-center">
         {/* Logo */}
         <Link to="/" className="flex items-center">

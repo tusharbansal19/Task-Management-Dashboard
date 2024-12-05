@@ -6,7 +6,7 @@ import TaskIcon from "@mui/icons-material/Task";
 import FilterListIcon from "@mui/icons-material/FilterList";
 import SettingsIcon from "@mui/icons-material/Settings";
 
-const Sidebar = () => {
+const TSidebar = () => {
   const menuItems = [
     { text: "Dashboard", icon: <DashboardIcon />, path: "/" },
     { text: "Tasks", icon: <TaskIcon />, path: "/tasks" },
@@ -38,4 +38,4 @@ const Sidebar = () => {
   );
 };
 
-export default Sidebar;
+export default TSidebar;

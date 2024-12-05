@@ -1,5 +1,5 @@
-import React, { useState, useEffect } from "react";
-import { FaEdit, FaCheck, FaTrash } from "react-icons/fa";
+import React, { useState, useEffect, useRef } from "react";
+import { FaEdit, FaCheck, FaTrash, FaPlus } from "react-icons/fa";
 import { DragDropContext, Droppable, Draggable } from "react-beautiful-dnd";
 
 const TaskCard = ({
@@ -12,6 +12,8 @@ const TaskCard = ({
 }) => {
   const [filteredTasks, setFilteredTasks] = useState([task]);
   const [remainingTime, setRemainingTime] = useState("");
+  const [isDropdownOpen, setDropdownOpen] = useState(false);
+  const dropdownRef = useRef();
 
   // Calculate remaining time
   useEffect(() => {
@@ -44,40 +46,37 @@ const TaskCard = ({
     setFilteredTasks(reorderedTasks);
   };
 
+  // Close dropdown when clicking outside
+  useEffect(() => {
+    const handleClickOutside = (event) => {
+      if (dropdownRef.current && !dropdownRef.current.contains(event.target)) {
+        setDropdownOpen(false);
+      }
+    };
+    document.addEventListener("mousedown", handleClickOutside);
+    return () => document.removeEventListener("mousedown", handleClickOutside);
+  }, []);
+
   return (
     <DragDropContext onDragEnd={onDragEnd} className="p-0 m-0">
-      <div className="w-full p-2 md:p-4 bg-[#2C2B5A]  text-white shadow-lg rounded-lg transition-all duration-300 hover:shadow-2xl hover:scale-105 ">
+      <div className="w-full p-1 md:p-4 bg-[#2C2B5A] text-white shadow-lg rounded-lg transition-all duration-300 hover:shadow-2xl hover:scale-105">
         {/* Title */}
-        <h1 className="text-xl mt-4  sm:text-2xl font-bold bg-[#8E44AD] p-2 rounded-md mb-1">
+        <h1 className="text-xl mt-4 sm:text-2xl font-bold bg-[#8E44AD] p-2 rounded-md mb-1">
           {task.title}
         </h1>
 
         {/* Description */}
-        <div className="flex gap-1 flex-col  sm:flex-row w-full">
-          <p className="text-xs sm:text-sm my-1 sm:my-4 w-full">
-            <span className="text-[#AFAFDF]">Description:</span>
-            <div className="h-20 overflow-y-scroll p-2 w-full sm:w-[80%] rounded-lg bg-[#3B3B80] text-white">
-              <p>
-                {task.description} Lorem ipsum dolor sit, amet consectetur
-                adipisicing elit. Eius beatae pariatur quisquam laboriosam
-                suscipit nostrum dolorum nisi praesentium delectus eos libero
-                necessitatibus repellendus facilis molestiae ipsum, tenetur
-                fugiat unde harum itaque enim obcaecati mollitia.
-              </p>
-            </div>
-          </p>
-
-          {/* Due Date */}
-          <p className="text-[0.7rem] sm:text-xs my-1 md:my-4 w-full">
-            <span className="text-[#AFAFDF]">Due Date:</span>
-            <div className="bg-[#3B3B80] text-white p-2 rounded-md mt-1">
-              {task.dueDate}
+        <div className="flex gap-1 flex-col sm:flex-row w-full gap-x-1">
+        <p className="text-xs sm:text-sm my-1 sm:my-4 w-[70%]">
+            <span className="text-[#AFAFDF]">Due Date :</span>
+            <div className=" overflow-y-scroll p-2 w-full rounded-lg bg-[#3B3B80] text-white">
+              <p>{task.dueDate}</p>
             </div>
           </p>
         </div>
 
         {/* Status */}
-        <div className="flex gap-1 flex-col sm:flex-row w-full">
+        <div className="flex gap-1 flex-row w-full">
           <p className="text-[0.7rem] sm:text-xs mb-1 w-full">
             <span className="text-[#AFAFDF]">Status:</span>
             <div
@@ -102,39 +101,26 @@ const TaskCard = ({
           </p>
         </div>
 
-        <Droppable droppableId="tasks">
-          {(provided) => (
-            <div {...provided.droppableProps} ref={provided.innerRef}>
-              {filteredTasks.map((task, index) => (
-                <Draggable
-                  key={task.id}
-                  draggableId={task.id.toString()}
-                  index={index}
-                >
-                  {(provided) => (
-                    <div
-                      {...provided.draggableProps}
-                      {...provided.dragHandleProps}
-                      ref={provided.innerRef}
-                      className="p-2 bg-[#3B3B80] rounded-md shadow-md mt-1 transition-all duration-200 hover:bg-[#8E44AD]"
-                    >
-                      <div className="flex justify-between">
-                        <span className="text-[0.7rem] sm:text-xs">{task.title}</span>
-                        <span className="text-[0.6rem] sm:text-xs text-gray-300">
-                          Due: {task.dueDate}
-                        </span>
-                      </div>
-                    </div>
-                  )}
-                </Draggable>
-              ))}
-              {provided.placeholder}
-            </div>
-          )}
-        </Droppable>
-
         {/* Actions */}
-        <div className="flex justify-around mb-1 mt-1">
+        
+
+        {/* Dropdown */}
+        <div className="relative" ref={dropdownRef}>
+          <button
+            onClick={() => setDropdownOpen((prev) => !prev)}
+            className=" text-white p-1 text-sm italic font-bold  rounded-md mt-1 shadow-md hover:bg-[#8E44AD]"
+          >
+            More Options
+          </button>
+          {isDropdownOpen && (
+            <div className="absolute top-12 py-3 p-3 right-0 bg-[#3B3B80] text-black shadow-lg rounded-lg w-48 z-[70]">
+            <p className="text-xs sm:text-sm my-1 sm:my-4 w-full">
+            <span className="text-[#AFAFDF]">Description:</span>
+            <div className="h-20 overflow-y-scroll p-2 w-full rounded-lg bg-[#3B3B80] text-white">
+              <p>{task.description} </p>
+            </div>
+          </p>
+          <div className="flex justify-around mb-1 mt-1">
           <FaEdit
             className="text-blue-400 cursor-pointer hover:text-blue-600 transition duration-200"
             onClick={() => {
@@ -153,6 +139,9 @@ const TaskCard = ({
               setDeleteModalOpen(true);
             }}
           />
+        </div>
+            </div>
+          )}
         </div>
       </div>
     </DragDropContext>

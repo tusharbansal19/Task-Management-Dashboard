@@ -47,11 +47,11 @@ const TaskCard = ({ task }) => {
             {task.title}
           </h1>
 
-          <div className="flex-1 pt-0 pb-6 ml-3">
+          <div className="flex pt-0 pb-6 ml-3">
             {/* Description */}
             <p className="text-sm mt-2">
               <span className="bold text-[0.5rem]">Description:</span>
-              <div className="h-20 overflow-y-scroll p-2 w-[80%] text-amber-800 rounded-lg bg-gray-50">
+              <div className="h-20 overflow-y-scroll p-2 min-w-[100px] text-amber-800 rounded-lg bg-gray-50">
                 <p>{task.description}</p>
               </div>
             </p>
@@ -59,9 +59,9 @@ const TaskCard = ({ task }) => {
             {/* Due Date */}
             <p className="text-sm mt-2">
               <span className="bold text-[0.5rem]">Due Date:</span>
-              <div className="h-10 overflow-y-scroll p-2 text-amber-800 rounded-lg bg-gray-50">
+    
                 <p>{task.dueDate}</p>
-              </div>
+           
             </p>
 
             {/* Status */}

@@ -130,7 +130,7 @@ const  [arrayOfTitle,serArrayOgtitle]=useState([]);
   //   console.log(arrayOfTitle);
 
   return (
-    <div className="container mx-auto p-4 min-h-[500px]" >
+    <div className="container mx-auto md:p-4 min-h-[500px]" >
       {/* Header */}
       <ToastContainer />
       <div className="flex flex-col justify-between items-center mb-6 text-[10px] sm:text-[20px]">
@@ -182,7 +182,7 @@ const  [arrayOfTitle,serArrayOgtitle]=useState([]);
 <div className=" text-[10px] sm:text-[20px] flex flex-row  justify-center items-center">
 
       <button
-        className="bg-blue-500 text-white h-[30px] sm:h-[50px] rounded shadow hover:bg-blue-600 transition"
+        className="bg-blue-500 text-white h-[30px] sm:h-[50px] rounded shadow hover:bg-blue-600 transition text-sm p-3"
         onClick={() => setModalOpen(true)}
         >
         Add Task
@@ -285,7 +285,7 @@ const  [arrayOfTitle,serArrayOgtitle]=useState([]);
 
     {/* Delete Confirmation Modal */}
 {isDeleteModalOpen && (
-  <div className="fixed inset-0 flex items-center justify-center bg-opacity-30 bg-[#2C2B5A]">
+  <div className="fixed inset-0 flex items-center justify-center bg-opacity-30 bg-[#2C2B5A] z-[100]">
     <div className="text-white z-[80] bg-blue-950 p-4 sm:p-6 rounded-lg w-[90%] sm:w-[400px] border-2">
       <h2 className="text-xl sm:text-2xl font-bold mb-4">Are you sure?</h2>
       <div className="flex justify-end gap-2">
